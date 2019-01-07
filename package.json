@@ -1,0 +1,22 @@
+{
+  "name": "flic-db",
+  "version": "1.0.0",
+  "description": "A relational database for an airport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Plutone11011/FLIC-DB.git"
+  },
+  "author": "",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/Plutone11011/FLIC-DB/issues"
+  },
+  "homepage": "https://github.com/Plutone11011/FLIC-DB#readme",
+  "dependencies": {
+    "mysql": "^2.16.0"
+  }
+}
