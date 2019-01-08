@@ -283,7 +283,8 @@ app.get("/sql",function(req,res,next){
     });
     
     //query che volete fare
-    pool.query(`INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) VALUES('C9','CompagniaC5','Italia') ;`, 
+    pool.query(`INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
+    VALUES('RSIMROJ60M21G','Mario','Rossi','mario.rossi@gmail.com','3458761213','italiana','1990-06-15','C1') ;`, 
         function(err,results,fields){
     
             if (err) throw err;
