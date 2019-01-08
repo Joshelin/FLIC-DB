@@ -23,7 +23,7 @@ VALUES('707','C1','disponibile',13,45,1995) ;
 
 /*7*/
 INSERT PASSEGGERO(CodiceFiscale, Nome, Cognome, Disabile, Email, Telefono, DataDiNascita, Nazionalita) 
-VALUES('BNCALCJ60M21G','Alice',"Bianchi",0,"alice.bianchi@fastwebnet.it",3981144523,STR_TO_DATE('09-05-1997','%m-%d-%y'),"italiana") ;
+VALUES('BNCALCJ60M21G','Alice',"Bianchi",0,"alice.bianchi@fastwebnet.it","3981144523",STR_TO_DATE('09-05-1997','%m-%d-%y'),"italiana") ;
 
 /*8*/
 INSERT BIGLIETTO(CodiceBiglietto, Costo, Posto, Bagagli, Check-in) 
