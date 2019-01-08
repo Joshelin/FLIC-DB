@@ -131,6 +131,6 @@ FROM ACQUISTO
 WHERE Passeggero = 'CodiceFiscale'
 
 /* 20 */
-SELECT DATEDIFF(hour, P.ora, D.ora)
+SELECT TIMEDIFF(P.ora, D.ora)
 FROM VOLO V, DESTINAZIONE D, PARTENZA P
 WHERE V.CodiceVolo = P.Volo AND V.CodiceVolo = D.Volo												   
