@@ -117,23 +117,9 @@ WHERE
 /* 16 */
 SELECT *
 FROM VOLO V, AEROPORTO A, PARTENZA P, 
-WHERE V.CodiceVolo= P.Volo AND  A.Sigla= P.Aeroporto AND A.Sigla='sigla'
-						
-
-												   
-  /*19*/
-												   
-SELECT COUNT B.NumeroBagagli
-FROM
-    BIGLIETTO B
-        JOIN
-    ACQUISTO A ON B.CodiceBiglietto = A.Biglietto
-        JOIN
-    VOLO V ON V.Volo = A.Volo
-
-												   
+WHERE V.CodiceVolo= P.Volo AND  A.Sigla= P.Aeroporto AND A.Sigla='sigla'										   
 												   
 /* 20 */
-SELECT DATEDIFF(hour, P.ora, D.ora)
+SELECT TIMEDIFF(P.ora, D.ora)
 FROM VOLO V, DESTINAZIONE D, PARTENZA P
 WHERE V.CodiceVolo = P.Volo AND V.CodiceVolo = D.Volo												   
