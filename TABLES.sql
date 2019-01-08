@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS COMANDANTE (
     Compagnia VARCHAR(10),
     Formazione CHAR(5),
     CHECK (Formazione LIKE 'PPL' OR 'CPL' OR 'ATPL'),
+    UNIQUE (Equipaggio , Compagnia),
     FOREIGN KEY (Equipaggio , Compagnia)
         REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
         ON UPDATE CASCADE ON DELETE SET NULL,
