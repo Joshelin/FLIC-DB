@@ -18,7 +18,7 @@
                     else {
                         for (i = 0; i < Object.keys(data[0]).length; i++){
                         $("tr:first-child").append(`<th>${Object.keys(data[0])[i]}</th>`) ;
-                    }
+                        }
                         $.each(data,function(index, value){
                             $("table").append(`<tr id=${index}row></tr>`) ;
                             $.each(Object.values(value),function(ind,val){
