@@ -257,3 +257,18 @@ pool.query(`CREATE TABLE IF NOT EXISTS DESTINAZIONE (
     console.log("destinazione created");
 });
 
+pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
+    Equipaggio CHAR(10) NOT NULL,
+    Compagnia CHAR(30) NOT NULL,
+    Tratta VARCHAR(50),
+    FOREIGN KEY (Tratta)
+        REFERENCES TRATTA (Nome)
+        ON UPDATE CASCADE ON DELETE SET NULL,
+    FOREIGN KEY (Equipaggio, Compagnia)
+        REFERENCES EQUIPAGGIO (CodiceEquipaggio, Compagnia)
+        ON UPDATE CASCADE ON DELETE CASCADE     
+);`,function(err,results,fields){
+    if (err) throw err;
+    console.log("percorrenza created");
+})
+
