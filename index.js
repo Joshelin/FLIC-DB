@@ -270,5 +270,22 @@ pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
 );`,function(err,results,fields){
     if (err) throw err;
     console.log("percorrenza created");
-})
+});
 
+pool.query(`INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) 
+    VALUES('A','CompagniaA','Italia') ;`, function(err,results,fields){
+
+        if (err) throw err;
+        console.log("compagnia inserita");
+    
+    });
+
+/*test per insert
+pool.query(`SELECT * FROM COMPAGNIA ;`, function(err,results,fields){
+
+    if (err) throw err;
+    console.log("compagnia inserita");
+    console.log(results);
+
+});
+*/
