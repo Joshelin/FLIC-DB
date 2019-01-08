@@ -118,7 +118,18 @@ WHERE
 SELECT *
 FROM VOLO V, AEROPORTO A, PARTENZA P, 
 WHERE V.CodiceVolo= P.Volo AND  A.Sigla= P.Aeroporto AND A.Sigla='sigla'										   
-												   
+
+/* 17 */
+SELECT Volo, Count(DISTINCT Passeggero)
+FROM ACQUISTO JOIN BIGLIETTO ON Biglietto = CodiceBiglietto
+WHERE Volo = 'CodiceVolo' AND Check_in = TRUE
+GROUP BY Volo
+
+/* 18 */
+SELECT Biglitto
+FROM ACQUISTO
+WHERE Passeggero = 'CodiceFiscale'
+
 /* 20 */
 SELECT DATEDIFF(hour, P.ora, D.ora)
 FROM VOLO V, DESTINAZIONE D, PARTENZA P
