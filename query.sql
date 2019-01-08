@@ -132,7 +132,7 @@ FROM ACQUISTO
 WHERE Passeggero = 'CodiceFiscale'
 												   
 /*19*/
-SELECT COUNT B.NumeroBagagli
+SELECT SUM B.NumeroBagagli
 FROM
     BIGLIETTO B
         JOIN
