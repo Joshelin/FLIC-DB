@@ -72,13 +72,8 @@ pool.query(`CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
 });
 
 pool.query(`CREATE TABLE IF NOT EXISTS TRATTA (
-    Equipaggio VARCHAR(10),
-    Compagnia VARCHAR(10),
     Nome VARCHAR(50) PRIMARY KEY,
     CHECK (Nome LIKE '%-%'),
-    FOREIGN KEY (Equipaggio , Compagnia)
-        REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
-        ON UPDATE CASCADE ON DELETE SET NULL
 );`, function (err, results, fields) {
     if (err) throw err;
     console.log("Tratta created");
@@ -258,15 +253,16 @@ pool.query(`CREATE TABLE IF NOT EXISTS DESTINAZIONE (
 });
 
 pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
-    Equipaggio CHAR(10) NOT NULL,
-    Compagnia CHAR(30) NOT NULL,
+    Equipaggio CHAR(10),
+    Compagnia CHAR(30),
     Tratta VARCHAR(50),
     FOREIGN KEY (Tratta)
         REFERENCES TRATTA (Nome)
-        ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (Equipaggio, Compagnia)
-        REFERENCES EQUIPAGGIO (CodiceEquipaggio, Compagnia)
-        ON UPDATE CASCADE ON DELETE CASCADE     
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (Equipaggio , Compagnia)
+        REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    PRIMARY KEY (Equipaggio , Compagnia , Tratta)
 );`,function(err,results,fields){
     if (err) throw err;
     console.log("percorrenza created");
