@@ -32,6 +32,7 @@ var pool  = mysql.createPool({
     database        : 'FLIC'
 });
 
+
 pool.query(`CREATE TABLE IF NOT EXISTS COMPAGNIA (
     CodiceCompagnia CHAR(10) PRIMARY KEY,
     Nome CHAR(30) NOT NULL,
@@ -89,9 +90,9 @@ pool.query(`CREATE TABLE IF NOT EXISTS DIPENDENTE (
     Nome CHAR(20) NOT NULL,
     Cognome CHAR(20) NOT NULL,
     Email VARCHAR(40),
-    Telefono INT(10),
+    Telefono VARCHAR(15),
     Nazionalita CHAR(10),
-    DataDiNascita TIME,
+    DataDiNascita DATE,
     Compagnia VARCHAR(10),
     FOREIGN KEY (Compagnia)
         REFERENCES COMPAGNIA (CodiceCompagnia)
@@ -139,7 +140,8 @@ pool.query(`CREATE TABLE IF NOT EXISTS PASSEGGERO (
     Cognome CHAR(20) NOT NULL,
     Disabile BOOLEAN,
     Email VARCHAR(40),
-    DataDiNascita TIME,
+    Telefono VARCHAR(15),
+    DataDiNascita DATE,
     Check_in BOOLEAN,
     Nazionalita CHAR(10),
     Bagagli INT
@@ -271,16 +273,16 @@ pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
     if (err) throw err;
     console.log("percorrenza created");
 });
-
+/*
 pool.query(`INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) 
-    VALUES('A','CompagniaA','Italia') ;`, function(err,results,fields){
+    VALUES('C1','CompagniaC1','Italia') ;`, function(err,results,fields){
 
         if (err) throw err;
         console.log("compagnia inserita");
     
     });
 
-/*test per insert
+test per insert
 pool.query(`SELECT * FROM COMPAGNIA ;`, function(err,results,fields){
 
     if (err) throw err;
@@ -289,3 +291,10 @@ pool.query(`SELECT * FROM COMPAGNIA ;`, function(err,results,fields){
 
 });
 */
+
+pool.query(`INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita) 
+VALUES('RSIMROJ60M21G','Mario','Rossi',"mario.rossi@gmail.com",
+"3458761213","italiana",1990-03-12) ;`, function(err,results,fields){
+    if (err) throw err;
+    console.log("dipendente inserita");
+})

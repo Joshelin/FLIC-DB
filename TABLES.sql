@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS DIPENDENTE (
     Nome CHAR(20) NOT NULL,
     Cognome CHAR(20) NOT NULL,
     Email VARCHAR(40),
-    Telefono INT(10),
+    Telefono VARCHAR(15),
     Nazionalita CHAR(10),
-    DataDiNascita TIME,
+    DataDiNascita DATE,
     Compagnia VARCHAR(10),
     FOREIGN KEY (Compagnia)
         REFERENCES COMPAGNIA (CodiceCompagnia)
@@ -85,7 +85,8 @@ CREATE TABLE IF NOT EXISTS PASSEGGERO (
     Cognome CHAR(20) NOT NULL,
     Disabile BOOLEAN,
     Email VARCHAR(40),
-    DataDiNascita TIME,
+    Telefono VARCHAR(15),    
+    DataDiNascita DATE,
     Check_in BOOLEAN,
     Nazionalita CHAR(10),
     Bagagli INT
