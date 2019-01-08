@@ -2,8 +2,8 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection({
     host: "localhost",
-    user: "nodeuser",
-    password: "1234"
+    user: "root",
+    password: "password"
     //debug: true
 });
 
@@ -27,8 +27,8 @@ connection.connect(function(err) {
 var pool  = mysql.createPool({
     connectionLimit : 100, //?
     host            : 'localhost',
-    user            : 'nodeuser',
-    password        : '1234',
+    user            : 'root',
+    password        : 'password',
     database        : 'FLIC'
 });
 
@@ -272,7 +272,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
 });
 
 pool.query(`INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
-VALUES("RSIMROJ60M21G","Mario","Rossi","mario.rossi@gmail.com","3458761213","italiana","1990-06-15","C1") ;`, 
+VALUES("RSTMROJ60M21G","Mario","Rossi","mario.rossi@gmail.com","3458761213","italiana","1990-06-15","C1") ;`, 
     function(err,results,fields){
 
         if (err) throw err;

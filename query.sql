@@ -5,6 +5,10 @@ INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) VALUES('C1','CompagniaC1','Ital
 INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
 VALUES('RSIMROJ60M21G','Mario','Rossi','mario.rossi@gmail.com','3458761213','italiana','1990-06-15','C1') ;
 
+/*5*/
+INSERT EQUIPAGGIO(CodiceEquipaggio, Compagnia) 
+VALUES('Marullo',"C1") ;
+
 /*3*/
 INSERT COMANDANTE(Dipendente, Equipaggio, Compagnia, Formazione) 
 VALUES('RSIMROJ60M21G','Marullo',"C1","PPL") ;
@@ -13,31 +17,53 @@ VALUES('RSIMROJ60M21G','Marullo',"C1","PPL") ;
 INSERT HOSTESS_STUART(Dipendente, Equipaggio, Compagnia) 
 VALUES('BNCMROJ60M21G','Marullo',"C1") ;
 
-/*5*/
-INSERT EQUIPAGGIO(CodiceEquipaggio, Compagnia) 
-VALUES('Marullo',"C1") ;
-
 /*6*/
 INSERT VELIVOLO(CodiceVelivolo, Compagnia, Stato, OreDiVolo, Carburante, AnnoDiCostruzione) 
-VALUES('707','C1','disponibile',13,45,1995) ;
+VALUES('707','C1','disponibile',13,55,1995) ;
 
 /*7*/
 INSERT PASSEGGERO(CodiceFiscale, Nome, Cognome, Disabile, Email, Telefono, DataDiNascita, Nazionalita) 
-VALUES('BNCALCJ60M21G','Alice',"Bianchi",0,"alice.bianchi@fastwebnet.it",3981144523,STR_TO_DATE('09-05-1997','%m-%d-%y'),"italiana") ;
+VALUES('BNCALCJ60M21G','Alice',"Bianchi",0,"alice.bianchi@fastwebnet.it",'3981144523','1997-09-05','italiana') ;
 
 /*8*/
-INSERT BIGLIETTO(CodiceBiglietto, Costo, Posto, Bagagli, Check-in) 
+INSERT BIGLIETTO(CodiceBiglietto, Costo, Posto, Bagagli, Check_in) 
 VALUES('30C',90.0,22,0,0) ;
 
 /*9*/
 INSERT VOLO(CodiceVolo, Stato, Carburante) 
 VALUES('1112','boarding',50) ;
 
+/* Extra for other queries */
+INSERT DISPOSIZIONE(Velivolo, Compagnia, Volo) VALUES('707', 'C1', '1113');
+INSERT AEROPORTO(Sigla) VALUES ('BLQ');
+INSERT AEROPORTO(Sigla) VALUES ('MXP');
+INSERT DESTINAZIONE(Volo, Data, ORA, Aeroporto) VALUES('1112', '2019-01-09', '08:00:00', 'MXP')
+INSERT PARTENZA(Volo, Data, ORA, Aeroporto) VALUES('1112', '2019-01-09', '07:00:00', 'BLQ')
+INSERT ACQUISTO(Biglietto, Volo, Passeggero) VALUES('30C', '1112','BNCALCJ60M21G')
+UPDATE BIGLIETTO
+	SET Check_in = TRUE
+	WHERE CodiceBiglietto = '30C'
+
 /*10*/
-SELECT v.CodiceVelivolo, v.Compagnia, v.Stato, v.OreDiVolo, v.Carburante, v.AnnoDiCostruzione
-FROM VELIVOLO v, DISPOSIZIONE d, VOLO f
-WHERE v.CodiceVelivolo = d.Velivolo AND d.Volo = f.Volo AND v.Carburante >= f.Carburante AND 
-    (f.Stato = 'boarding' OR f.Stato = 'check-in' OR 'delayed')
+SELECT 
+    f.CodiceVolo,
+    v.CodiceVelivolo,
+    v.Compagnia,
+    v.Stato,
+    v.OreDiVolo,
+    v.Carburante,
+    v.AnnoDiCostruzione
+FROM
+    VELIVOLO v,
+    DISPOSIZIONE d,
+    VOLO f
+WHERE
+    v.CodiceVelivolo = d.Velivolo
+        AND d.Volo = f.CodiceVolo
+        AND v.Carburante <= f.Carburante
+        AND (f.Stato = 'boarding'
+        OR f.Stato = 'check-in'
+        OR f.Stato = 'delayed')
 
 /* 
 DELETE FROM PASSEGGERO
@@ -116,8 +142,8 @@ WHERE
     E.CodiceEquipaggio = 'CodiceEquipaggio'
 
 /* 16 */
-SELECT *
-FROM VOLO V, AEROPORTO A, PARTENZA P, 
+SELECT CodiceVolo
+FROM VOLO V, AEROPORTO A, PARTENZA P
 WHERE V.CodiceVolo= P.Volo AND  A.Sigla= P.Aeroporto AND A.Sigla='sigla'										   
 
 /* 17 */
@@ -127,20 +153,21 @@ WHERE Volo = 'CodiceVolo' AND Check_in = TRUE
 GROUP BY Volo
 
 /* 18 */
-SELECT Biglitto
+SELECT Biglietto
 FROM ACQUISTO
 WHERE Passeggero = 'CodiceFiscale'
-												   
-/*19*/
-SELECT SUM B.NumeroBagagli
+
+/* 19 */												   
+SELECT SUM(B.Bagagli)
 FROM
     BIGLIETTO B
         JOIN
     ACQUISTO A ON B.CodiceBiglietto = A.Biglietto
         JOIN
-    VOLO V ON V.Volo = A.Volo										   
+    VOLO V ON V.CodiceVolo = A.Volo
+WHERE V.CodiceVolo = 'CodiceVolo'									   
 
 /* 20 */
 SELECT TIMEDIFF(P.ora, D.ora)
 FROM VOLO V, DESTINAZIONE D, PARTENZA P
-WHERE V.CodiceVolo = P.Volo AND V.CodiceVolo = D.Volo												   
+WHERE V.CodiceVolo = P.Volo AND V.CodiceVolo = D.Volo AND V.CodiceVolo = 'CodiceVolo'
