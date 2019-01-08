@@ -126,9 +126,18 @@ WHERE Volo = 'CodiceVolo' AND Check_in = TRUE
 GROUP BY Volo
 
 /* 18 */
-SELECT Biglietto
+SELECT Biglitto
 FROM ACQUISTO
 WHERE Passeggero = 'CodiceFiscale'
+												   
+/*19*/
+SELECT COUNT B.NumeroBagagli
+FROM
+    BIGLIETTO B
+        JOIN
+    ACQUISTO A ON B.CodiceBiglietto = A.Biglietto
+        JOIN
+    VOLO V ON V.Volo = A.Volo										   
 
 /* 20 */
 SELECT TIMEDIFF(P.ora, D.ora)
