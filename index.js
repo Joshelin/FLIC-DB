@@ -283,12 +283,11 @@ app.get("/sql",function(req,res,next){
     });
     
     //query che volete fare
-    pool.query(`SELECT Nome FROM COMPAGNIA`, 
+    pool.query(`INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) VALUES('C9','CompagniaC5','Italia') ;`, 
         function(err,results,fields){
     
             if (err) throw err;
             console.log("compagnia inserita");
-            console.log(results);
             res.send(results);
         
         });
