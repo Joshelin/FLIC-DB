@@ -126,7 +126,7 @@ WHERE Volo = 'CodiceVolo' AND Check_in = TRUE
 GROUP BY Volo
 
 /* 18 */
-SELECT Biglitto
+SELECT Biglietto
 FROM ACQUISTO
 WHERE Passeggero = 'CodiceFiscale'
 
