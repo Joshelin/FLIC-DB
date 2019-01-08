@@ -2,8 +2,8 @@
 INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) VALUES('C1','CompagniaC1','Italia') ;
 
 /*2*/
-INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita) 
-VALUES('RSIMROJ60M21G','Mario','Rossi',"mario.rossi@gmail.com","3458761213","italiana",STR_TO_DATE('07-25-1990','%m-%d-%y')) ;
+INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
+VALUES("RSIMROJ60M21G","Mario","Rossi","mario.rossi@gmail.com","3458761213","italiana","1990-06-15","C1") ;
 
 /*3*/
 INSERT COMANDANTE(Dipendente, Equipaggio, Compagnia, Formazione) 
@@ -114,6 +114,7 @@ FROM
         AND HS.Compagnia = E.Compagnia
 WHERE
     E.CodiceEquipaggio = 'CodiceEquipaggio'
+
 /* 16 */
 SELECT *
 FROM VOLO V, AEROPORTO A, PARTENZA P, 

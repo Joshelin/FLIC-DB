@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: "localhost",
     user: "nodeuser",
-    password: "1234",
+    password: "1234"
     //debug: true
 });
 
@@ -74,7 +74,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
 
 pool.query(`CREATE TABLE IF NOT EXISTS TRATTA (
     Nome VARCHAR(50) PRIMARY KEY,
-    CHECK (Nome LIKE '%-%'),
+    CHECK (Nome LIKE '%-%')
 );`, function (err, results, fields) {
     if (err) throw err;
     console.log("Tratta created");
@@ -96,6 +96,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS DIPENDENTE (
     if (err) throw err;
     console.log("Dipendente created");
 });
+
 pool.query(`CREATE TABLE IF NOT EXISTS COMANDANTE (
     Dipendente CHAR(16) PRIMARY KEY,
     Equipaggio VARCHAR(10),
@@ -135,9 +136,9 @@ pool.query(`CREATE TABLE IF NOT EXISTS PASSEGGERO (
     Cognome CHAR(20) NOT NULL,
     Disabile BOOLEAN,
     Email VARCHAR(40),
-    Telefono VARCHAR(15),
+    Telefono VARCHAR(15),    
     DataDiNascita DATE,
-    Nazionalita CHAR(10),
+    Nazionalita CHAR(10)
 );`, function (err, results, fields) {
     if (err) throw err;
     console.log("Passeggero created");
@@ -191,7 +192,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS BIGLIETTO (
     Costo FLOAT(2),
     Posto INT,
     Bagagli INT,
-    Check_in BOOLEAN,
+    Check_in BOOLEAN
 );`, function (err, results, fields) {
     if (err) throw err;
     console.log("Biglietto created");
@@ -269,15 +270,17 @@ pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
     if (err) throw err;
     console.log("percorrenza created");
 });
-/*
-pool.query(`INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) 
-    VALUES('C1','CompagniaC1','Italia') ;`, function(err,results,fields){
+
+pool.query(`INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
+VALUES("RSIMROJ60M21G","Mario","Rossi","mario.rossi@gmail.com","3458761213","italiana","1990-06-15","C1") ;`, 
+    function(err,results,fields){
 
         if (err) throw err;
         console.log("compagnia inserita");
+        console.log(results);
     
     });
-
+/*
 test per insert
 pool.query(`SELECT * FROM COMPAGNIA ;`, function(err,results,fields){
 
@@ -288,9 +291,3 @@ pool.query(`SELECT * FROM COMPAGNIA ;`, function(err,results,fields){
 });
 */
 
-pool.query(`INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita) 
-VALUES('RSIMROJ60M21G','Mario','Rossi',"mario.rossi@gmail.com",
-"3458761213","italiana",STR_TO_DATE('07-25-1990','%m-%d-%y')) ;`, function(err,results,fields){
-    if (err) throw err;
-    console.log("dipendente inserita");
-})
