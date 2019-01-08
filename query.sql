@@ -3,7 +3,7 @@ INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) VALUES('C1','CompagniaC1','Ital
 
 /*2*/
 INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
-VALUES("RSIMROJ60M21G","Mario","Rossi","mario.rossi@gmail.com","3458761213","italiana","1990-06-15","C1") ;
+VALUES('RSIMROJ60M21G','Mario','Rossi','mario.rossi@gmail.com','3458761213','italiana','1990-06-15','C1') ;
 
 /*3*/
 INSERT COMANDANTE(Dipendente, Equipaggio, Compagnia, Formazione) 
