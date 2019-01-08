@@ -1,5 +1,7 @@
+1)
 INSERT COMPAGNIA(CodiceCompagnia, Nome, Nazione) VALUES('C1','CompagniaC1','Italia') ;
 
+2)
 INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita) 
 VALUES('RSIMROJ60M21G','Mario','Rossi',"mario.rossi@gmail.com","3458761213","italiana",1990-03-12) ;
 /* 16 */
@@ -83,3 +85,45 @@ FROM
         AND HS.Compagnia = E.Compagnia
 WHERE
     E.CodiceEquipaggio = 'CodiceEquipaggio'
+VALUES('RSIMROJ60M21G','Mario','Rossi',"mario.rossi@gmail.com","3458761213","italiana",STR_TO_DATE('07-25-1990','%m-%d-%y')) ;
+
+3)
+INSERT COMANDANTE(Dipendente, Equipaggio, Compagnia, Formazione) 
+VALUES('RSIMROJ60M21G','Marullo',"C1","PPL") ;
+
+4)
+INSERT HOSTESS_STUART(Dipendente, Equipaggio, Compagnia) 
+VALUES('BNCMROJ60M21G','Marullo',"C1","PPL") ;
+
+5)
+INSERT EQUIPAGGIO(CodiceEquipaggio, Compagnia) 
+VALUES('Marullo',"C1") ;
+
+6)
+INSERT VELIVOLO(CodiceVelivolo, Compagnia, Stato, OreDiVolo, Carburante, AnnoDiCostruzione) 
+VALUES('707','C1','disponibile',13,45,1995) ;
+
+7)
+INSERT PASSEGGERO(CodiceFiscale, Nome, Cognome, Disabile, Email, Telefono, DataDiNascita, Nazionalita) 
+VALUES('BNCALCJ60M21G','Alice',"Bianchi",0,,"alice.bianchi@fastwebnet.it",3981144523,STR_TO_DATE('09-05-1997','%m-%d-%y'),"italiana") ;
+
+8)
+INSERT BIGLIETTO(CodiceBiglietto, Costo, Posto, Bagagli, Check-in) 
+VALUES('30C',90.0,22,0,0) ;
+
+9)
+INSERT VOLO(CodiceVolo, Stato, Carburante) 
+VALUES('1112','boarding',50) ;
+
+10)
+UPDATE VELIVOLO SET Stato = 'disponibile' WHERE Compagnia = 'C1'
+
+11)
+SELECT Stato
+FROM VELIVOLO
+WHERE OreDiVolo > 12
+
+12)
+SELECT 
+FROM VELIVOLO v, DISPOSIZIONE d, VOLO f
+WHERE v.CodiceVelivolo = d.Velivolo and 

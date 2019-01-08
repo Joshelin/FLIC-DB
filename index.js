@@ -137,9 +137,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS PASSEGGERO (
     Email VARCHAR(40),
     Telefono VARCHAR(15),
     DataDiNascita DATE,
-    Check_in BOOLEAN,
     Nazionalita CHAR(10),
-    Bagagli INT
 );`, function (err, results, fields) {
     if (err) throw err;
     console.log("Passeggero created");
@@ -191,7 +189,9 @@ pool.query(`CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
 pool.query(`CREATE TABLE IF NOT EXISTS BIGLIETTO (
     CodiceBiglietto CHAR(10) PRIMARY KEY,
     Costo FLOAT(2),
-    Posto INT
+    Posto INT,
+    Bagagli INT,
+    Check_in BOOLEAN,
 );`, function (err, results, fields) {
     if (err) throw err;
     console.log("Biglietto created");
@@ -290,7 +290,7 @@ pool.query(`SELECT * FROM COMPAGNIA ;`, function(err,results,fields){
 
 pool.query(`INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita) 
 VALUES('RSIMROJ60M21G','Mario','Rossi',"mario.rossi@gmail.com",
-"3458761213","italiana",1990-03-12) ;`, function(err,results,fields){
+"3458761213","italiana",STR_TO_DATE('07-25-1990','%m-%d-%y')) ;`, function(err,results,fields){
     if (err) throw err;
     console.log("dipendente inserita");
 })

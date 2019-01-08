@@ -82,7 +82,11 @@ CREATE TABLE IF NOT EXISTS PASSEGGERO (
     Email VARCHAR(40),
     Telefono VARCHAR(15),    
     DataDiNascita DATE,
+<<<<<<< Updated upstream
     Nazionalita CHAR(10)
+=======
+    Nazionalita CHAR(10),
+>>>>>>> Stashed changes
 );
 
 CREATE TABLE IF NOT EXISTS VOLO (
@@ -123,8 +127,13 @@ CREATE TABLE IF NOT EXISTS BIGLIETTO (
     CodiceBiglietto CHAR(10) PRIMARY KEY,
     Costo FLOAT(2),
     Posto INT,
+<<<<<<< Updated upstream
     Check_in BOOLEAN,
     Bagagli INT
+=======
+    Bagagli INT,
+    Check_in BOOLEAN,
+>>>>>>> Stashed changes
 );
 
 CREATE TABLE IF NOT EXISTS ACQUISTO (
