@@ -29,8 +29,13 @@ CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
 );
 
 CREATE TABLE IF NOT EXISTS TRATTA (
+    Equipaggio VARCHAR(10),
+    Compagnia VARCHAR(10),
     Nome VARCHAR(50) PRIMARY KEY,
     CHECK (Nome LIKE '%-%'),
+    FOREIGN KEY (Equipaggio , Compagnia)
+        REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
+        ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS DIPENDENTE (
@@ -38,9 +43,9 @@ CREATE TABLE IF NOT EXISTS DIPENDENTE (
     Nome CHAR(20) NOT NULL,
     Cognome CHAR(20) NOT NULL,
     Email VARCHAR(40),
-    Telefono VARCHAR(15),
+    Telefono INT(10),
     Nazionalita CHAR(10),
-    DataDiNascita DATE,
+    DataDiNascita TIME,
     Compagnia VARCHAR(10),
     FOREIGN KEY (Compagnia)
         REFERENCES COMPAGNIA (CodiceCompagnia)
@@ -53,7 +58,6 @@ CREATE TABLE IF NOT EXISTS COMANDANTE (
     Compagnia VARCHAR(10),
     Formazione CHAR(5),
     CHECK (Formazione LIKE 'PPL' OR 'CPL' OR 'ATPL'),
-    UNIQUE (Equipaggio , Compagnia),
     FOREIGN KEY (Equipaggio , Compagnia)
         REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
         ON UPDATE CASCADE ON DELETE SET NULL,
@@ -80,9 +84,10 @@ CREATE TABLE IF NOT EXISTS PASSEGGERO (
     Cognome CHAR(20) NOT NULL,
     Disabile BOOLEAN,
     Email VARCHAR(40),
-    Telefono VARCHAR(15),    
-    DataDiNascita DATE,
-    Nazionalita CHAR(10)
+    DataDiNascita TIME,
+    Check_in BOOLEAN,
+    Nazionalita CHAR(10),
+    Bagagli INT
 );
 
 CREATE TABLE IF NOT EXISTS VOLO (
@@ -122,9 +127,7 @@ CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
 CREATE TABLE IF NOT EXISTS BIGLIETTO (
     CodiceBiglietto CHAR(10) PRIMARY KEY,
     Costo FLOAT(2),
-    Posto INT,
-    Check_in BOOLEAN,
-    Bagagli INT
+    Posto INT
 );
 
 CREATE TABLE IF NOT EXISTS ACQUISTO (
@@ -149,7 +152,7 @@ CREATE TABLE IF NOT EXISTS AEROPORTO (
 CREATE TABLE IF NOT EXISTS PARTENZA (
     Volo CHAR(10) PRIMARY KEY,
     Data TIME,
-    ORA TIME,
+    Ora TIME,
     Aeroporto CHAR(5),
     FOREIGN KEY (Volo)
         REFERENCES VOLO (CodiceVolo)
@@ -162,7 +165,7 @@ CREATE TABLE IF NOT EXISTS PARTENZA (
 CREATE TABLE IF NOT EXISTS DESTINAZIONE (
     Volo CHAR(10) PRIMARY KEY,
     Data TIME,
-    ORA TIME,
+    Ora TIME,
     Aeroporto CHAR(5),
     FOREIGN KEY (Volo)
         REFERENCES VOLO (CodiceVolo)
@@ -170,17 +173,4 @@ CREATE TABLE IF NOT EXISTS DESTINAZIONE (
     FOREIGN KEY (Aeroporto)
         REFERENCES AEROPORTO (Sigla)
         ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS PERCORRENZA (
-    Equipaggio CHAR(10),
-    Compagnia CHAR(30),
-    Tratta VARCHAR(50),
-    FOREIGN KEY (Tratta)
-        REFERENCES TRATTA (Nome)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (Equipaggio , Compagnia)
-        REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    PRIMARY KEY (Equipaggio , Compagnia , Tratta)
 );
