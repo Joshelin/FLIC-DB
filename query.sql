@@ -123,7 +123,7 @@ SELECT Stato
 FROM VELIVOLO
 WHERE OreDiVolo > 12
 
-12)
-SELECT 
+/*12*/
+SELECT v.CodiceVelivolo, v.Compagnia, v.Stato, v.OreDiVolo, v.Carburante, v.AnnoDiCostruzione
 FROM VELIVOLO v, DISPOSIZIONE d, VOLO f
-WHERE v.CodiceVelivolo = d.Velivolo and 
+WHERE v.CodiceVelivolo = d.Velivolo AND d.Volo = f.Volo AND v.Carburante >= f.Carburante 
