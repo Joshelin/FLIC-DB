@@ -2,32 +2,26 @@
 
 DELIMITER //
 CREATE TRIGGER SeHostessNonComandante
-AFTER INSERT ON HOSTESS_STUART
+BEFORE INSERT ON HOSTESS_STUART
     FOR EACH ROW
         BEGIN
             BEGIN IF
-                NEW.Dipendente IN (SELECT Dipendente FROM COMANDANTE) 
+                NEW.Dipendente = ANY (SELECT Dipendente FROM COMANDANTE) 
                     THEN
-                DELETE FROM 
-                    HOSTESS_STUART 
-                        WHERE
-                    Dipendente = NEW.Dipendente;
+                    		SIGNAL SQLSTATE  VALUE '45000' SET MESSAGE_TEXT = 'Questa persona è già comandante';
             END IF;
         END;
     END;//
     
   DELIMITER //
 CREATE TRIGGER SeComandanteNonHostess
-AFTER INSERT ON COMANDANTE
+BEFORE INSERT ON COMANDANTE
     FOR EACH ROW
         BEGIN
             BEGIN IF
-                NEW.Dipendente IN (SELECT Dipendente FROM HOSTESS_STUART) 
+                NEW.Dipendente = ANY (SELECT Dipendente FROM HOSTESS_STUART) 
                     THEN
-                DELETE FROM 
-                    DIPENDENTE
-                        WHERE
-                    Dipendente = NEW.Dipendente;
+                    		SIGNAL SQLSTATE  VALUE '45000' SET MESSAGE_TEXT = 'Questa persona è già hostess o stuart';
             END IF;
         END;
     END;//

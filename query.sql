@@ -15,7 +15,7 @@ VALUES('RSIMROJ60M21G','Marullo',"C1","PPL") ;
 
 /*4*/
 INSERT HOSTESS_STUART(Dipendente, Equipaggio, Compagnia) 
-VALUES('BNCMROJ60M21G','Marullo',"C1") ;
+VALUES('RSIMROJ60M21G','Marullo',"C1") ;
 
 /*6*/
 INSERT VELIVOLO(CodiceVelivolo, Compagnia, Stato, OreDiVolo, Carburante, AnnoDiCostruzione) 
