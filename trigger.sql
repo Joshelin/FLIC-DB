@@ -1,6 +1,37 @@
 
 //evitare che lo stesso dipendente possa essere Comandante e Hostess dello stesso equipaggio.
 
+DELIMITER //
+CREATE TRIGGER SeHostessNonComandante
+AFTER INSERT ON HOSTESS_STUART
+    FOR EACH ROW
+        BEGIN
+            BEGIN IF
+                NEW.Dipendente IN (SELECT Dipendente FROM COMANDANTE) 
+                    THEN
+                DELETE FROM 
+                    HOSTESS_STUART 
+                        WHERE
+                    Dipendente = NEW.Dipendente;
+            END IF;
+        END;
+    END;//
+    
+  DELIMITER //
+CREATE TRIGGER SeComandanteNonHostess
+AFTER INSERT ON COMANDANTE
+    FOR EACH ROW
+        BEGIN
+            BEGIN IF
+                NEW.Dipendente IN (SELECT Dipendente FROM HOSTESS_STUART) 
+                    THEN
+                DELETE FROM 
+                    DIPENDENTE
+                        WHERE
+                    Dipendente = NEW.Dipendente;
+            END IF;
+        END;
+    END;//
 
 //evitare che un dipendente possa essere passeggero di un volo assegnato al suo equipaggio.
 
