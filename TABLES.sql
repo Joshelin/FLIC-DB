@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS COMPAGNIA (
-    CodiceCompagnia CHAR(10) PRIMARY KEY,
-    Nome CHAR(30) NOT NULL,
-    Nazione CHAR(20) NOT NULL
+    CodiceCompagnia VARCHAR(10) PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL,
+    Nazione VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS VELIVOLO (
@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS VELIVOLO (
 );
 
 CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
-    CodiceEquipaggio CHAR(10),
-    Compagnia CHAR(30),
+    CodiceEquipaggio VARCHAR(10),
+    Compagnia VARCHAR(30),
     PRIMARY KEY (CodiceEquipaggio , Compagnia),
     FOREIGN KEY (Compagnia)
         REFERENCES COMPAGNIA (CodiceCompagnia)
@@ -34,12 +34,12 @@ CREATE TABLE IF NOT EXISTS TRATTA (
 );
 
 CREATE TABLE IF NOT EXISTS DIPENDENTE (
-    CodiceFiscale CHAR(16) PRIMARY KEY,
-    Nome CHAR(20) NOT NULL,
-    Cognome CHAR(20) NOT NULL,
+    CodiceFiscale VARCHAR(16) PRIMARY KEY,
+    Nome VARCHAR(20) NOT NULL,
+    Cognome VARCHAR(20) NOT NULL,
     Email VARCHAR(40),
     Telefono VARCHAR(15),
-    Nazionalita CHAR(10),
+    Nazionalita VARCHAR(10),
     DataDiNascita DATE,
     Compagnia VARCHAR(10),
     FOREIGN KEY (Compagnia)
@@ -48,10 +48,10 @@ CREATE TABLE IF NOT EXISTS DIPENDENTE (
 );
 
 CREATE TABLE IF NOT EXISTS COMANDANTE (
-    Dipendente CHAR(16) PRIMARY KEY,
+    Dipendente VARCHAR(16) PRIMARY KEY,
     Equipaggio VARCHAR(10),
     Compagnia VARCHAR(10),
-    Formazione CHAR(5),
+    Formazione VARCHAR(5),
     CHECK (Formazione LIKE 'PPL' OR 'CPL' OR 'ATPL'),
     UNIQUE (Equipaggio , Compagnia),
     FOREIGN KEY (Equipaggio , Compagnia)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS COMANDANTE (
 );
 
 CREATE TABLE IF NOT EXISTS HOSTESS_STUART (
-    Dipendente CHAR(16) PRIMARY KEY,
+    Dipendente VARCHAR(16) PRIMARY KEY,
     Equipaggio VARCHAR(10),
     Compagnia VARCHAR(10) REFERENCES COMPAGNIA (CodiceCompagnia),
     FOREIGN KEY (Equipaggio , Compagnia)
@@ -75,18 +75,18 @@ CREATE TABLE IF NOT EXISTS HOSTESS_STUART (
 );
 
 CREATE TABLE IF NOT EXISTS PASSEGGERO (
-    CodiceFiscale CHAR(16) PRIMARY KEY,
-    Nome CHAR(20) NOT NULL,
-    Cognome CHAR(20) NOT NULL,
+    CodiceFiscale VARCHAR(16) PRIMARY KEY,
+    Nome VARCHAR(20) NOT NULL,
+    Cognome VARCHAR(20) NOT NULL,
     Disabile BOOLEAN,
     Email VARCHAR(40),
     Telefono VARCHAR(15),    
     DataDiNascita DATE,
-    Nazionalita CHAR(10)
+    Nazionalita VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS VOLO (
-    CodiceVolo CHAR(10) PRIMARY KEY,
+    CodiceVolo VARCHAR(10) PRIMARY KEY,
     Stato VARCHAR(10),
     Carburante INT,
     CHECK (Stato LIKE 'check-in' OR 'boarding'
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS VOLO (
 
 CREATE TABLE IF NOT EXISTS DISPOSIZIONE (
     Velivolo VARCHAR(10) NOT NULL,
-    Compagnia CHAR(10) NOT NULL,
+    Compagnia VARCHAR(10) NOT NULL,
     Volo VARCHAR(10) PRIMARY KEY,
     FOREIGN KEY (Velivolo , Compagnia)
         REFERENCES VELIVOLO (CodiceVelivolo , Compagnia)
@@ -108,8 +108,8 @@ CREATE TABLE IF NOT EXISTS DISPOSIZIONE (
 );
 
 CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
-    Equipaggio CHAR(10) NOT NULL,
-    Compagnia CHAR(30) NOT NULL,
+    Equipaggio VARCHAR(10) NOT NULL,
+    Compagnia VARCHAR(30) NOT NULL,
     Volo VARCHAR(10) PRIMARY KEY,
     FOREIGN KEY (Equipaggio , Compagnia)
         REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
 );
 
 CREATE TABLE IF NOT EXISTS BIGLIETTO (
-    CodiceBiglietto CHAR(10) PRIMARY KEY,
+    CodiceBigliettoVARCHAR(10) PRIMARY KEY,
     Costo FLOAT(2),
     Posto INT,
     Check_in BOOLEAN,
@@ -128,9 +128,9 @@ CREATE TABLE IF NOT EXISTS BIGLIETTO (
 );
 
 CREATE TABLE IF NOT EXISTS ACQUISTO (
-    Biglietto CHAR(10) PRIMARY KEY,
-    Volo CHAR(10),
-    Passeggero CHAR(16),
+    Biglietto VARCHAR(10) PRIMARY KEY,
+    Volo VARCHAR(10),
+    Passeggero VARCHAR(16),
     FOREIGN KEY (Biglietto)
         REFERENCES BIGLIETTO (CodiceBiglietto)
         ON UPDATE CASCADE ON DELETE CASCADE,
@@ -143,14 +143,14 @@ CREATE TABLE IF NOT EXISTS ACQUISTO (
 );
 
 CREATE TABLE IF NOT EXISTS AEROPORTO (
-    Sigla CHAR(10) PRIMARY KEY
+    SiglaVARCHAR(10) PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS PARTENZA (
-    Volo CHAR(10) PRIMARY KEY,
+    Volo VARCHAR(10) PRIMARY KEY,
     Data DATE,
     ORA TIME,
-    Aeroporto CHAR(5),
+    Aeroporto VARCHAR(5),
     FOREIGN KEY (Volo)
         REFERENCES VOLO (CodiceVolo)
         ON UPDATE CASCADE ON DELETE CASCADE,
@@ -160,10 +160,10 @@ CREATE TABLE IF NOT EXISTS PARTENZA (
 );
 
 CREATE TABLE IF NOT EXISTS DESTINAZIONE (
-    Volo CHAR(10) PRIMARY KEY,
+    Volo VARCHAR(10) PRIMARY KEY,
     Data DATE,
     ORA TIME,
-    Aeroporto CHAR(5),
+    Aeroporto VARCHAR(5),
     FOREIGN KEY (Volo)
         REFERENCES VOLO (CodiceVolo)
         ON UPDATE CASCADE ON DELETE CASCADE,
@@ -173,8 +173,8 @@ CREATE TABLE IF NOT EXISTS DESTINAZIONE (
 );
 
 CREATE TABLE IF NOT EXISTS PERCORRENZA (
-    Equipaggio CHAR(10),
-    Compagnia CHAR(30),
+    Equipaggio VARCHAR(10),
+    Compagnia VARCHAR(30),
     Tratta VARCHAR(50),
     FOREIGN KEY (Tratta)
         REFERENCES TRATTA (Nome)

@@ -281,6 +281,7 @@ app.get("/create",function(req,res,next){
         if (err) throw err;
         console.log("percorrenza created");
     });
+
     res.sendStatus(200);
 })
 

@@ -1,5 +1,4 @@
 
-//evitare che lo stesso dipendente possa essere Comandante e Hostess dello stesso equipaggio.
 
 DELIMITER //
 CREATE TRIGGER SeHostessNonComandante
@@ -54,15 +53,15 @@ BEFORE INSERT ON AQUISTO
             
 
 
-//evitare che l'aeroporto di partenza e destinazione di un volo siano uguali.
+
 
 DELIMITER //
 CREATE TRIGGER ControlloAeroporti 
 BEFORE INSERT ON PARTENZA
 FOR EACH ROW
 BEGIN 
-    BEGIN IF NEW.Sigla= (SELECT Sigla FROM Destinazione D WHERE D.Volo = NEW.Volo)) THEN
-  //DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Sigla=NEW.Sigla; 
+    BEGIN IF NEW.Aeroporto = ANY (SELECT Aeroporto FROM DESTINAZIONE D WHERE D.Volo = NEW.Volo) THEN
+		DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Aeroporto = NEW.Aeroporto; 
     END IF;
 END;
 END;//
@@ -71,8 +70,8 @@ DELIMITER //
 CREATE TRIGGER ControlloAeroporti BEFORE INSERT ON DESTINAZIONE
 FOR EACH ROW
 BEGIN 
-    BEGIN IF( NEW.Sigla= (SELECT Sigla FROM PARTENZA P WHERE P.Volo = NEW.Volo)) THEN
-  //DELETE FROM DESTINAZIONE WHERE Volo = NEW.Volo AND Sigla=NEW.Sigla; 
+    BEGIN IF ( NEW.Aeroporto = (SELECT Aeroporto FROM PARTENZA P WHERE P.Volo = NEW.Volo)) THEN
+        DELETE FROM DESTINAZIONE WHERE Volo = NEW.Volo AND Aeroporto = NEW.Aeroporto ; 
     END IF;
 END;
 END;//
@@ -83,8 +82,8 @@ DELIMETER //
 CREATE TRIGGER ControlloAeroporti AFTER INSERT ON PARTENZA
 FOR EACH ROW
 BEGIN 
-  BEGIN IF( NEW.Sigla= (SELECT Sigla FROM Destinazione D WHERE D.Volo = NEW.Volo)) THEN
-  DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Sigla=NEW.Sigla; 
+  BEGIN IF ( NEW.Aeroporto = (SELECT Aeroporto FROM Destinazione D WHERE D.Volo = NEW.Volo)) THEN
+   DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Aeroporto = NEW.Aeroporto; 
 END IF;
 END;
 END;//
