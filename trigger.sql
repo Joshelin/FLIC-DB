@@ -28,7 +28,7 @@ BEFORE INSERT ON COMANDANTE
 
 //evitare che un dipendente possa essere passeggero di un volo assegnato al suo equipaggio.
 DELIMITER//
-CREATE TRIGGER seHostessNoPasseggero 
+CREATE TRIGGER seEquipaggioNoPasseggero 
 BEFORE INSERT ON AQUISTO
     FOR EACH ROW
         BEGIN 
@@ -39,8 +39,7 @@ BEFORE INSERT ON AQUISTO
                                                 E.CodiceEquipaggio = A.Equipaggio AND
                                                 A.Volo = NEW.Volo)
                    THEN
-                       ....
-      
+                       SIGNAL SQLSTATE  VALUE '45000' SET MESSAGE_TEXT = 'Questa persona fa parte dell equipaggio del volo.';
              END IF;
         END;
  END;//
