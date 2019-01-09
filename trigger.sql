@@ -57,18 +57,19 @@ BEFORE INSERT ON AQUISTO
 //evitare che l'aeroporto di partenza e destinazione di un volo siano uguali.
 
 DELIMITER //
-CREATE TRIGGER ControlloAeroporti 
+CREATE TRIGGER ControlloAeroportiPart
 BEFORE INSERT ON PARTENZA
 FOR EACH ROW
 BEGIN 
-    BEGIN IF NEW.Aeroporto = (SELECT Aeroporto FROM Destinazione D WHERE D.Volo = NEW.Volo) THEN
+    BEGIN IF NEW.Aeroporto = (SELECT Aeroporto FROM DESTINAZIONE D WHERE D.Volo = NEW.Volo) THEN
   //DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Aeroporto =NEW.Aeroporto; 
     END IF;
 END;
 END;//
 
 DELIMITER //
-CREATE TRIGGER ControlloAeroporti BEFORE INSERT ON DESTINAZIONE
+CREATE TRIGGER ControlloAeroportiDest
+BEFORE INSERT ON DESTINAZIONE
 FOR EACH ROW
 BEGIN 
     BEGIN IF NEW.Aeroporto= (SELECT Aeroporto FROM PARTENZA P WHERE P.Volo = NEW.Volo) THEN
