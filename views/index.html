@@ -6,8 +6,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            $("input").on("click",function(e){
 
-                $.get("/sql").done(function(data){
+                e.preventDefault();
+
+                var query = $("textarea").val();
+
+                $.get("/sql",{ q : query}).done(function(data){
                     console.log(data);
                     if (data.affectedRows){
                         $.each(Object.keys(data),function(index,value){
@@ -29,11 +34,18 @@
                     }
                 });
 
+            });
         });
     </script>
 </head>
 
 <body>
+    <h1>Aeroporto</h1>
+    <form>
+        <label>Inserisci qui la query</label><br>
+        <textarea col="40" row="4" placeholder="Select * From .." required ></textarea><br>
+        <input type="submit">
+    </form>
     <table>
         <tr>
             <!--riga degli attributi-->
