@@ -6,23 +6,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+
+
+            $("button").on("click",function(){
+                $.get("/create").done(function(data){
+                    alert("Database creato");
+                });
+            });
+
             $("input").on("click",function(e){
 
                 e.preventDefault();
 
+                $("table").empty();
+                $("table").append("<tr></tr>");
+
                 var query = $("textarea").val();
 
-                $.get("/sql",{ q : query}).done(function(data){
+                if (!query){
+                    //textarea was empty
+                    alert("Scrivi una query nel campo apposito");
+                }
+                else {
+                    $.get("/sql",{ q : query}).done(function(data){
                     console.log(data);
+
                     if (data.affectedRows){
                         $.each(Object.keys(data),function(index,value){
                             $("body").append(`<p id=${index}P></p>`);
                             $(`#${index}P`).append(`${value}: ${data[value]}`);
                         });
                     }
+                    else if (data.err){
+                        alert("query errata");
+                    }
                     else {
                         for (i = 0; i < Object.keys(data[0]).length; i++){
-                        $("tr:first-child").append(`<th>${Object.keys(data[0])[i]}</th>`) ;
+                            $("tr:first-child").append(`<th>${Object.keys(data[0])[i]}</th>`) ;
                         }
                         $.each(data,function(index, value){
                             $("table").append(`<tr id=${index}row></tr>`) ;
@@ -34,6 +54,8 @@
                     }
                 });
 
+                }
+                
             });
         });
     </script>
@@ -46,6 +68,7 @@
         <textarea col="40" row="4" placeholder="Select * From .." required ></textarea><br>
         <input type="submit">
     </form>
+    <button>Clicca qui per creare le tabelle</button>
     <table>
         <tr>
             <!--riga degli attributi-->

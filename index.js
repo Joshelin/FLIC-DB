@@ -9,7 +9,7 @@ app.get("/",function(req,res,next){
     res.sendFile(path + "index.html");
 });
 
-app.get("/sql",function(req,res,next){
+app.get("/create",function(req,res,next){
 
     var connection = mysql.createConnection({
         host: "localhost",
@@ -281,16 +281,32 @@ app.get("/sql",function(req,res,next){
         if (err) throw err;
         console.log("percorrenza created");
     });
+    res.sendStatus(200);
+})
+
+app.get("/sql",function(req,res,next){
+
+    var pool  = mysql.createPool({
+        connectionLimit : 100, //?
+        host            : 'localhost',
+        user            : 'nodeuser',
+        password        : '1234',
+        database        : 'FLIC'
+    });
+
     
-    pool.query(req.query.q, 
-        function(err,results,fields){
+        pool.query(req.query.q, 
+            function(err,results,fields){
     
-            if (err) throw err;
-            console.log("compagnia inserita");
-            res.send(results);
+                if (err){
+                    res.send({err : true});
+                }
+                else{
+                    console.log("compagnia inserita");
+                    res.send(results);
+                }
         
-        });
-    
+            });
 })
 
 app.listen(8000, ()=>{
