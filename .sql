@@ -1,1 +1,2 @@
 
+INSERT PARTENZA(Volo, Data, ORA, Aeroporto) VALUES('1112', '2019-01-09', '07:00:00', 'MXP')
