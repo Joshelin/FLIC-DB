@@ -8,5 +8,13 @@
 
 //evitare che l'aeroporto di partenza e destinazione di un volo siano uguali.
 
-
+DELIMETER //
+CREATE TRIGGER ControlloAeroporti BEFOR INSERT ON PARTENZA
+FOR EACH ROW
+BEGIN 
+  BEGIN IF( NEW.Sigla= (SELECT Sigla FROM Destinazione D WHERE D.Volo = NEW.Volo)) THEN
+  DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Sigla=NEW.Sigla; 
+END IF;
+END;
+END;//
 
