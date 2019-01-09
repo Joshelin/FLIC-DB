@@ -34,22 +34,29 @@ AFTER INSERT ON COMANDANTE
     END;//
 
 //evitare che un dipendente possa essere passeggero di un volo assegnato al suo equipaggio.
-
+DELIMITER//
+CREATE TRIGGER seHostessNoPasseggero 
+BEFORE INSERT ON AQUISTO
+    FOR EACH ROW
+        BEGIN 
+            BEGIN IF NEW.Passeggero IN (SELECT DIPENDENTE FROM HOSTESS_STUART H, COMANDANTE C WHERE 
+                
 
 
 //evitare che l'aeroporto di partenza e destinazione di un volo siano uguali.
 
-DELIMETER //
+DELIMITER //
 CREATE TRIGGER ControlloAeroporti BEFORE INSERT ON PARTENZA
 FOR EACH ROW
 BEGIN 
-  BEGIN IF( NEW.Sigla= (SELECT Sigla FROM Destinazione D WHERE D.Volo = NEW.Volo)) THEN
+  BEGIN IF
+    NEW.Sigla= (SELECT Sigla FROM Destinazione D WHERE D.Volo = NEW.Volo)) THEN
   //DELETE FROM PARTENZA WHERE Volo = NEW.Volo AND Sigla=NEW.Sigla; 
 END IF;
 END;
 END;//
 
-DELIMETER //
+DELIMITER //
 CREATE TRIGGER ControlloAeroporti BEFORE INSERT ON DESTINAZIONE
 FOR EACH ROW
 BEGIN 
