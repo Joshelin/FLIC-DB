@@ -7,13 +7,13 @@
     <script>
         $(document).ready(function(){
 
-
+            /*
             $("button").on("click",function(){
                 $.get("/create").done(function(data){
-		    console.log(data);
                     alert("Database creato");
                 });
             });
+            */
 
             $("input").on("click",function(e){
 
@@ -39,7 +39,7 @@
                         });
                     }
                     else if (data.err){
-                        alert(data.err.code);
+                        alert("query errata");
                     }
                     else {
                         for (i = 0; i < Object.keys(data[0]).length; i++){
@@ -69,7 +69,6 @@
         <textarea col="40" row="4" placeholder="Select * From .." required ></textarea><br>
         <input type="submit">
     </form>
-    <button>Clicca qui per creare le tabelle</button>
     <table>
         <tr>
             <!--riga degli attributi-->
