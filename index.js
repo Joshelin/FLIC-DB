@@ -12,8 +12,8 @@ app.get("/",function(req,res,next){
 app.get("/create",function(req,res,next){
 
     var connection = mysql.createConnection({
-        host: "localhost",
-        user: "nodeuser",
+        host: "golem",
+        user: "my1901",
         password: "1234"
         //debug: true
     });
@@ -37,8 +37,8 @@ app.get("/create",function(req,res,next){
     
     var pool  = mysql.createPool({
         connectionLimit : 100, //?
-        host            : 'localhost',
-        user            : 'nodeuser',
+        host            : 'golem',
+        user            : 'my1901',
         password        : '1234',
         database        : 'FLIC'
     });
@@ -289,8 +289,8 @@ app.get("/sql",function(req,res,next){
 
     var pool  = mysql.createPool({
         connectionLimit : 100, //?
-        host            : 'localhost',
-        user            : 'nodeuser',
+        host            : 'golem',
+        user            : 'my1901',
         password        : '1234',
         database        : 'FLIC'
     });
