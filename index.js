@@ -26,7 +26,11 @@ app.get("/create",function(req,res,next){
         Nazione VARCHAR(20) NOT NULL
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Compagnia created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
+        
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS VELIVOLO (
@@ -44,7 +48,10 @@ app.get("/create",function(req,res,next){
             OR 'manutenzione')
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Velivolo created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
@@ -56,7 +63,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Equipaggio created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS TRATTA (
@@ -64,7 +74,10 @@ app.get("/create",function(req,res,next){
         CHECK (Nome LIKE '%-%')
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Tratta created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DIPENDENTE (
@@ -81,7 +94,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE SET NULL
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Dipendente created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS COMANDANTE (
@@ -99,7 +115,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Comandante created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS HOSTESS_STUART (
@@ -114,7 +133,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Hostess_stuart created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PASSEGGERO (
@@ -128,7 +150,10 @@ app.get("/create",function(req,res,next){
         Nazionalita VARCHAR(10)
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Passeggero created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS VOLO (
@@ -141,7 +166,10 @@ app.get("/create",function(req,res,next){
             OR 'departed')
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Volo created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DISPOSIZIONE (
@@ -156,7 +184,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Disposizione created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
@@ -171,7 +202,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Assegnazione created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS BIGLIETTO (
@@ -182,7 +216,10 @@ app.get("/create",function(req,res,next){
         Check_in BOOLEAN
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Biglietto created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS ACQUISTO (
@@ -200,14 +237,20 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) throw err;
-        console.log("Acquisto created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS AEROPORTO (
         Sigla VARCHAR(10) PRIMARY KEY
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Aeroporto created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PARTENZA (
@@ -223,7 +266,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("Partenza created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DESTINAZIONE (
@@ -239,7 +285,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) res.send({err: err});
-        console.log("destinazione created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
@@ -255,10 +304,12 @@ app.get("/create",function(req,res,next){
         PRIMARY KEY (Equipaggio , Compagnia , Tratta)
     );`,function(err,results,fields){
         if (err) res.send({err: err});
-        console.log("percorrenza created");
+        else {
+            console.log("Compagnia created");
+            res.sendStatus(200);
+        }
     });
 
-    res.sendStatus('200');
 })
 
 app.get("/sql",function(req,res,next){
