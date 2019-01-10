@@ -9,6 +9,7 @@ app.get("/",function(req,res,next){
     res.sendFile(path + "index.html");
 });
 
+/*
 app.get("/create",function(req,res,next){
 
     var pool  = mysql.createPool({
@@ -244,7 +245,7 @@ app.get("/create",function(req,res,next){
 
     res.sendStatus(200);
 })
-
+*/
 app.get("/sql",function(req,res,next){
 
     var pool  = mysql.createPool({
