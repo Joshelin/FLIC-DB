@@ -26,10 +26,6 @@ app.get("/create",function(req,res,next){
         Nazione VARCHAR(20) NOT NULL
     );`, function (err, results, fields) {
         if (err) console.log(err);
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
         
     });
     
@@ -214,10 +210,6 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) console.log(err);
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DESTINAZIONE (
@@ -233,10 +225,6 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
         if (err) console.log(err);
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
