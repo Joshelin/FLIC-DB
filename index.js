@@ -11,13 +11,12 @@ app.get("/",function(req,res,next){
 
 app.get("/create",function(req,res,next){
 
-    var connection = mysql.createConnection({
+   /* var connection = mysql.createConnection({
         host: "golem",
         user: "my1901",
-        password: "1234"
+        password: "thuSoJ9m"
         //debug: true
     });
-    
     connection.connect(function(err) {
         if (err) {
             console.error('error connecting: ' + err.stack);
@@ -32,24 +31,24 @@ app.get("/create",function(req,res,next){
         connection.end(function(err) {
             // The connection is terminated now
         });
-        */
+       
     });
-    
+    */
     var pool  = mysql.createPool({
         connectionLimit : 100, //?
-        host            : 'golem',
+        host            : 'phpmyadmin.web.cs.unibo.it',
         user            : 'my1901',
-        password        : '1234',
-        database        : 'FLIC'
+        password        : '',
+        database        : 'my1901'
     });
     
     
     pool.query(`CREATE TABLE IF NOT EXISTS COMPAGNIA (
-        CodiceCompagnia CHAR(10) PRIMARY KEY,
-        Nome CHAR(30) NOT NULL,
-        Nazione CHAR(20) NOT NULL
+        CodiceCompagnia VARCHAR(10) PRIMARY KEY,
+        Nome VARCHAR(30) NOT NULL,
+        Nazione VARCHAR(20) NOT NULL
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Compagnia created");
     });
     
@@ -67,19 +66,19 @@ app.get("/create",function(req,res,next){
         CHECK (Stato LIKE 'disponibile'
             OR 'manutenzione')
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Velivolo created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
-        CodiceEquipaggio CHAR(10),
-        Compagnia CHAR(30),
+        CodiceEquipaggio VARCHAR(10),
+        Compagnia VARCHAR(30),
         PRIMARY KEY (CodiceEquipaggio , Compagnia),
         FOREIGN KEY (Compagnia)
             REFERENCES COMPAGNIA (CodiceCompagnia)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Equipaggio created");
     });
     
@@ -87,32 +86,32 @@ app.get("/create",function(req,res,next){
         Nome VARCHAR(50) PRIMARY KEY,
         CHECK (Nome LIKE '%-%')
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Tratta created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DIPENDENTE (
-        CodiceFiscale CHAR(16) PRIMARY KEY,
-        Nome CHAR(20) NOT NULL,
-        Cognome CHAR(20) NOT NULL,
+        CodiceFiscale VARCHAR(16) PRIMARY KEY,
+        Nome VARCHAR(20) NOT NULL,
+        Cognome VARCHAR(20) NOT NULL,
         Email VARCHAR(40),
         Telefono VARCHAR(15),
-        Nazionalita CHAR(10),
+        Nazionalita VARCHAR(10),
         DataDiNascita DATE,
         Compagnia VARCHAR(10),
         FOREIGN KEY (Compagnia)
             REFERENCES COMPAGNIA (CodiceCompagnia)
             ON UPDATE CASCADE ON DELETE SET NULL
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Dipendente created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS COMANDANTE (
-        Dipendente CHAR(16) PRIMARY KEY,
+        Dipendente VARCHAR(16) PRIMARY KEY,
         Equipaggio VARCHAR(10),
         Compagnia VARCHAR(10),
-        Formazione CHAR(5),
+        Formazione VARCHAR(5),
         CHECK (Formazione LIKE 'PPL' OR 'CPL' OR 'ATPL'),
         UNIQUE (Equipaggio , Compagnia),
         FOREIGN KEY (Equipaggio , Compagnia)
@@ -122,12 +121,12 @@ app.get("/create",function(req,res,next){
             REFERENCES DIPENDENTE (CodiceFiscale)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Comandante created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS HOSTESS_STUART (
-        Dipendente CHAR(16) PRIMARY KEY,
+        Dipendente VARCHAR(16) PRIMARY KEY,
         Equipaggio VARCHAR(10),
         Compagnia VARCHAR(10) REFERENCES COMPAGNIA (CodiceCompagnia),
         FOREIGN KEY (Equipaggio , Compagnia)
@@ -137,26 +136,26 @@ app.get("/create",function(req,res,next){
             REFERENCES DIPENDENTE (CodiceFiscale)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Hostess_stuart created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PASSEGGERO (
-        CodiceFiscale CHAR(16) PRIMARY KEY,
-        Nome CHAR(20) NOT NULL,
-        Cognome CHAR(20) NOT NULL,
+        CodiceFiscale VARCHAR(16) PRIMARY KEY,
+        Nome VARCHAR(20) NOT NULL,
+        Cognome VARCHAR(20) NOT NULL,
         Disabile BOOLEAN,
         Email VARCHAR(40),
         Telefono VARCHAR(15),    
         DataDiNascita DATE,
-        Nazionalita CHAR(10)
+        Nazionalita VARCHAR(10)
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Passeggero created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS VOLO (
-        CodiceVolo CHAR(10) PRIMARY KEY,
+        CodiceVolo VARCHAR(10) PRIMARY KEY,
         Stato VARCHAR(10),
         Carburante INT,
         CHECK (Stato LIKE 'check-in' OR 'boarding'
@@ -164,13 +163,13 @@ app.get("/create",function(req,res,next){
             OR 'delayed'
             OR 'departed')
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Volo created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DISPOSIZIONE (
         Velivolo VARCHAR(10) NOT NULL,
-        Compagnia CHAR(10) NOT NULL,
+        Compagnia VARCHAR(10) NOT NULL,
         Volo VARCHAR(10) PRIMARY KEY,
         FOREIGN KEY (Velivolo , Compagnia)
             REFERENCES VELIVOLO (CodiceVelivolo , Compagnia)
@@ -179,13 +178,13 @@ app.get("/create",function(req,res,next){
             REFERENCES VOLO (CodiceVolo)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Disposizione created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
-        Equipaggio CHAR(10) NOT NULL,
-        Compagnia CHAR(30) NOT NULL,
+        Equipaggio VARCHAR(10) NOT NULL,
+        Compagnia VARCHAR(30) NOT NULL,
         Volo VARCHAR(10) PRIMARY KEY,
         FOREIGN KEY (Equipaggio , Compagnia)
             REFERENCES EQUIPAGGIO (CodiceEquipaggio , Compagnia)
@@ -194,25 +193,25 @@ app.get("/create",function(req,res,next){
             REFERENCES VOLO (CodiceVolo)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Assegnazione created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS BIGLIETTO (
-        CodiceBiglietto CHAR(10) PRIMARY KEY,
+        CodiceBiglietto VARCHAR(10) PRIMARY KEY,
         Costo FLOAT(2),
         Posto INT,
         Bagagli INT,
         Check_in BOOLEAN
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Biglietto created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS ACQUISTO (
-        Biglietto CHAR(10) PRIMARY KEY,
-        Volo CHAR(10),
-        Passeggero CHAR(16),
+        Biglietto VARCHAR(10) PRIMARY KEY,
+        Volo VARCHAR(10),
+        Passeggero VARCHAR(16),
         FOREIGN KEY (Biglietto)
             REFERENCES BIGLIETTO (CodiceBiglietto)
             ON UPDATE CASCADE ON DELETE CASCADE,
@@ -228,17 +227,17 @@ app.get("/create",function(req,res,next){
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS AEROPORTO (
-        Sigla CHAR(10) PRIMARY KEY
+        Sigla VARCHAR(10) PRIMARY KEY
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Aeroporto created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PARTENZA (
-        Volo CHAR(10) PRIMARY KEY,
+        Volo VARCHAR(10) PRIMARY KEY,
         Data TIME,
         ORA TIME,
-        Aeroporto CHAR(5),
+        Aeroporto VARCHAR(5),
         FOREIGN KEY (Volo)
             REFERENCES VOLO (CodiceVolo)
             ON UPDATE CASCADE ON DELETE CASCADE,
@@ -246,15 +245,15 @@ app.get("/create",function(req,res,next){
             REFERENCES AEROPORTO (Sigla)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("Partenza created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DESTINAZIONE (
-        Volo CHAR(10) PRIMARY KEY,
+        Volo VARCHAR(10) PRIMARY KEY,
         Data TIME,
         ORA TIME,
-        Aeroporto CHAR(5),
+        Aeroporto VARCHAR(5),
         FOREIGN KEY (Volo)
             REFERENCES VOLO (CodiceVolo)
             ON UPDATE CASCADE ON DELETE CASCADE,
@@ -262,13 +261,13 @@ app.get("/create",function(req,res,next){
             REFERENCES AEROPORTO (Sigla)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("destinazione created");
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PERCORRENZA (
-        Equipaggio CHAR(10),
-        Compagnia CHAR(30),
+        Equipaggio VARCHAR(10),
+        Compagnia VARCHAR(30),
         Tratta VARCHAR(50),
         FOREIGN KEY (Tratta)
             REFERENCES TRATTA (Nome)
@@ -278,21 +277,20 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE,
         PRIMARY KEY (Equipaggio , Compagnia , Tratta)
     );`,function(err,results,fields){
-        if (err) throw err;
+        if (err) res.send({err: err});
         console.log("percorrenza created");
     });
 
-    res.sendStatus(200);
+    res.sendStatus('200');
 })
 
 app.get("/sql",function(req,res,next){
 
     var pool  = mysql.createPool({
-        connectionLimit : 100, //?
-        host            : 'golem',
+        host            : 'phpmyadmin.web.cs.unibo.it',
         user            : 'my1901',
-        password        : '1234',
-        database        : 'FLIC'
+        password        : '',
+        database        : 'my1901'
     });
 
     
@@ -300,10 +298,10 @@ app.get("/sql",function(req,res,next){
             function(err,results,fields){
     
                 if (err){
-                    res.send({err : true});
+                    res.send({err : err});
                 }
                 else{
-                    console.log("compagnia inserita");
+                    console.log(results);
                     res.send(results);
                 }
         
