@@ -25,7 +25,7 @@ app.get("/create",function(req,res,next){
         Nome VARCHAR(30) NOT NULL,
         Nazione VARCHAR(20) NOT NULL
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
+        if (err) console.log(err);
         else {
             console.log("Compagnia created");
             res.sendStatus(200);
@@ -47,11 +47,7 @@ app.get("/create",function(req,res,next){
         CHECK (Stato LIKE 'disponibile'
             OR 'manutenzione')
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS EQUIPAGGIO (
@@ -62,22 +58,14 @@ app.get("/create",function(req,res,next){
             REFERENCES COMPAGNIA (CodiceCompagnia)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS TRATTA (
         Nome VARCHAR(50) PRIMARY KEY,
         CHECK (Nome LIKE '%-%')
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DIPENDENTE (
@@ -93,11 +81,7 @@ app.get("/create",function(req,res,next){
             REFERENCES COMPAGNIA (CodiceCompagnia)
             ON UPDATE CASCADE ON DELETE SET NULL
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS COMANDANTE (
@@ -114,11 +98,7 @@ app.get("/create",function(req,res,next){
             REFERENCES DIPENDENTE (CodiceFiscale)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS HOSTESS_STUART (
@@ -132,11 +112,7 @@ app.get("/create",function(req,res,next){
             REFERENCES DIPENDENTE (CodiceFiscale)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PASSEGGERO (
@@ -149,11 +125,7 @@ app.get("/create",function(req,res,next){
         DataDiNascita DATE,
         Nazionalita VARCHAR(10)
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS VOLO (
@@ -165,11 +137,7 @@ app.get("/create",function(req,res,next){
             OR 'delayed'
             OR 'departed')
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS DISPOSIZIONE (
@@ -183,11 +151,7 @@ app.get("/create",function(req,res,next){
             REFERENCES VOLO (CodiceVolo)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS ASSEGNAZIONE (
@@ -201,11 +165,7 @@ app.get("/create",function(req,res,next){
             REFERENCES VOLO (CodiceVolo)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS BIGLIETTO (
@@ -215,11 +175,7 @@ app.get("/create",function(req,res,next){
         Bagagli INT,
         Check_in BOOLEAN
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS ACQUISTO (
@@ -236,21 +192,13 @@ app.get("/create",function(req,res,next){
             REFERENCES PASSEGGERO (CodiceFiscale)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) throw err;
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS AEROPORTO (
         Sigla VARCHAR(10) PRIMARY KEY
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
     
     pool.query(`CREATE TABLE IF NOT EXISTS PARTENZA (
@@ -265,7 +213,7 @@ app.get("/create",function(req,res,next){
             REFERENCES AEROPORTO (Sigla)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
+        if (err) console.log(err);
         else {
             console.log("Compagnia created");
             res.sendStatus(200);
@@ -284,7 +232,7 @@ app.get("/create",function(req,res,next){
             REFERENCES AEROPORTO (Sigla)
             ON UPDATE CASCADE ON DELETE CASCADE
     );`, function (err, results, fields) {
-        if (err) res.send({err: err});
+        if (err) console.log(err);
         else {
             console.log("Compagnia created");
             res.sendStatus(200);
@@ -303,13 +251,10 @@ app.get("/create",function(req,res,next){
             ON UPDATE CASCADE ON DELETE CASCADE,
         PRIMARY KEY (Equipaggio , Compagnia , Tratta)
     );`,function(err,results,fields){
-        if (err) res.send({err: err});
-        else {
-            console.log("Compagnia created");
-            res.sendStatus(200);
-        }
+        if (err) console.log(err);
     });
 
+    res.sendStatus(200);
 })
 
 app.get("/sql",function(req,res,next){
