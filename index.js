@@ -11,29 +11,6 @@ app.get("/",function(req,res,next){
 
 app.get("/create",function(req,res,next){
 
-   /* var connection = mysql.createConnection({
-        host: "golem",
-        user: "my1901",
-        password: "thuSoJ9m"
-        //debug: true
-    });
-    connection.connect(function(err) {
-        if (err) {
-            console.error('error connecting: ' + err.stack);
-            return
-        }
-        connection.query("CREATE DATABASE if not exists FLIC", function (err, result) {
-            if (err) throw err;
-            console.log("Database created");
-        });
-        console.log("Connected as id: " + connection.threadId);
-        /*
-        connection.end(function(err) {
-            // The connection is terminated now
-        });
-       
-    });
-    */
     var pool  = mysql.createPool({
         connectionLimit : 100, //?
         host            : 'phpmyadmin.web.cs.unibo.it',
