@@ -26,15 +26,18 @@ BEFORE INSERT ON COMANDANTE
         END;
     END;//
 
+/*
 //evitare che un dipendente possa essere passeggero di un volo assegnato al suo equipaggio.
-DELIMITER//
+DELIMITER //
 CREATE TRIGGER seEquipaggioNoPasseggero 
-BEFORE INSERT ON AQUISTO
+BEFORE INSERT ON ACQUISTO
     FOR EACH ROW
         BEGIN 
-            BEGIN IF NEW.Passeggero IN (SELECT H.Dipendente, C.Dipendente
-                                        FROM HOSTESS_STUART H, COMANDANTE C, ASSEGNAZIONE A, EQUIPAGGIO E 
-                                        WHERE  H.Equipaggio = E.CodiceEquipaggio AND
+            BEGIN IF NEW.Passeggero = ANY (SELECT D.CodiceFiscale
+                                        FROM HOSTESS_STUART H, COMANDANTE C, ASSEGNAZIONE A, EQUIPAGGIO E, DIPENDENTE D 
+                                        WHERE  D.CodiceFiscale = H.Dipendente AND
+                                                D.CodiceFiscale = C.Dipendente AND 
+                                                H.Equipaggio = E.CodiceEquipaggio AND
                                                 C.Equipaggio = E.CodiceEquipaggio AND
                                                 E.CodiceEquipaggio = A.Equipaggio AND
                                                 A.Volo = NEW.Volo)
@@ -43,7 +46,7 @@ BEFORE INSERT ON AQUISTO
              END IF;
         END;
  END;//
-            
+*/            
 
 
 

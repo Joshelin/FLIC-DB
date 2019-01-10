@@ -7,7 +7,7 @@ VALUES('RSIMROJ60M21G','Mario','Rossi','mario.rossi@gmail.com','3458761213','ita
 
 /*5*/
 INSERT EQUIPAGGIO(CodiceEquipaggio, Compagnia) 
-VALUES('Marullo',"C1") ;
+VALUES('Marullo',"C1") ;    
 
 /*3*/
 INSERT COMANDANTE(Dipendente, Equipaggio, Compagnia, Formazione) 
@@ -15,7 +15,7 @@ VALUES('RSIMROJ60M21G','Marullo',"C1","PPL") ;
 
 /*4*/
 INSERT HOSTESS_STUART(Dipendente, Equipaggio, Compagnia) 
-VALUES('RSIMROJ60M21G','Marullo',"C1") ;
+VALUES('AAA','Marullo',"C1") ;
 
 /*6*/
 INSERT VELIVOLO(CodiceVelivolo, Compagnia, Stato, OreDiVolo, Carburante, AnnoDiCostruzione) 

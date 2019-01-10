@@ -1,2 +1,2 @@
-INSERT DIPENDENTE(CodiceFiscale, Nome, Cognome, Email, Telefono, Nazionalita, DataDiNascita, Compagnia) 
-VALUES('Ra','Mario','Rossi','mario.rossi@gmail.com','3458761213','italiana','1990-06-15','C1') ;
+
+INSERT ACQUISTO(Biglietto, Volo, Passeggero) VALUES('30B', '1112','RSIMROJ60M21G')
